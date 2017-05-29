@@ -1,0 +1,113 @@
+Step 1.
+
+dos2unix <files_name>
+
+If scripts are downloaded, extract and rename the zip file to "appdynamics-machine-agent-installation" 
+
+Step 2.
+Example command for copying file to a target host
+
+# Starting on a local machine, within a folder containing the appdynamics-machine-agent-installation/ folder from git
+
+# Run the following with your own user account [user] that has access to the bastion server and target host
+
+  $ scp -r appdynamics-machine-agent-installation/ [user]@[bastion-ip]:/tmp
+
+  $ ssh [user]@[bastion-ip]
+
+  $ scp -r /tmp/appdynamics-machine-agent-installation/ [hostname]:/tmp
+
+  $ ssh [hostname]
+
+  $ dzdo su - appdmon
+
+  $ cp -r /tmp/appdynamics-machine-agent-installation/ /home/appdmon
+
+  $ cd /home/appdmon/appdynamics-machine-agent-installation/
+
+  
+
+Check the file permissions on the folder and scripts
+
+ Owner: appdmon
+
+ Group: appdmongrp
+
+  Mode: 755
+
+Step 3.
+Make sure all the values are correct and are placed under the correct controller.
+
+Examples of PLTE configurations can be found in the description
+
+Checks the to destination directories have to be conducted.
+
+## PRE INSTALL SCRIPTS ## 
+
+Check that ' /opt/appd ' is owned by ' appdmon '
+
+and that 
+
+Check that ' /opt/appd/machineagent '  is owned by ' appdmon ' and is in the group  ' appdmongrp'
+
+Step 4.
+
+Run the installation script, with the relevant option.
+
+ 
+
+
+
+
+
+
+
+
+
+# Check the contents of the configuration files
+
+# As the ' appdmon ' user run the following 
+
+  
+
+$ ./configure_machineagent.sh
+
+  
+
+# Follow the on screen instructions
+ 
+
+INSTALLATION [FOR ADMIN]
+
+In order to add the machine agent as a service the daemonse_me.sh script will need to be ran.
+
+ 
+
+
+
+
+
+
+
+
+
+AS ROOT
+
+$ cd /home/appdmon/appdynamics-machine-agent-installation/
+
+$ ./daemonize_me.sh
+
+  
+
+Once the the service has been added to the in scripts, the following commands can be used to interact with the agent:
+
+  
+
+$ service machineagent start 
+
+ 
+
+$ service machineagent stop
+
+$ service machineagent status
+ 
